@@ -1,43 +1,36 @@
 "use client";
-import { motion } from "framer-motion";
-import { DollarSign, ShoppingBag, Users, TrendingUp } from "lucide-react";
+import { LayoutDashboard, Package, ShoppingCart, LogOut } from "lucide-react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
-export default function AdminDashboard() {
-  const stats = [
-    { label: "إجمالي المبيعات", value: "145,200 EGP", icon: DollarSign, color: "text-green-500" },
-    { label: "الطلبات الجديدة", value: "34", icon: ShoppingBag, color: "text-blue-500" },
-    { label: "العملاء", value: "1,204", icon: Users, color: "text-purple-500" },
-    { label: "معدل النمو", value: "+12.5%", icon: TrendingUp, color: "text-primary" },
-  ];
+export default function AdminLayout({ children }: { children: React.ReactNode }) {
+  const router = useRouter();
 
   return (
-    <div className="space-y-8">
-      <h1 className="text-3xl font-bold">لوحة التحكم</h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {stats.map((stat, i) => (
-          <motion.div
-            key={i}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: i * 0.1 }}
-            className="bg-neutral-900 p-6 rounded-2xl border border-neutral-800 flex items-center justify-between"
-          >
-            <div>
-              <p className="text-neutral-400 text-sm mb-1">{stat.label}</p>
-              <h3 className="text-2xl font-bold">{stat.value}</h3>
-            </div>
-            <div className={`p-4 rounded-xl bg-neutral-950 ${stat.color}`}>
-              <stat.icon className="w-6 h-6" />
-            </div>
-          </motion.div>
-        ))}
-      </div>
-      <div className="bg-neutral-900 rounded-2xl border border-neutral-800 p-6">
-        <h2 className="text-xl font-bold mb-4">أحدث الطلبات</h2>
-        <div className="text-center py-10 text-neutral-500">
-          سيتم عرض البيانات هنا بعد ربط قاعدة البيانات (Supabase).
+    <div className="flex h-screen bg-neutral-950 text-white overflow-hidden">
+      <aside className="w-64 border-r border-neutral-800 bg-black flex flex-col">
+        <div className="h-20 flex items-center px-6 border-b border-neutral-800">
+          <img src="/phoenix-logo.png" alt="Admin" className="h-8" />
+          <span className="ml-3 font-bold text-lg tracking-wider text-primary">ADMIN</span>
         </div>
-      </div>
+        <nav className="flex-1 p-4 space-y-2">
+          <Link href="/admin" className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-neutral-900 transition text-neutral-400 hover:text-white">
+            <LayoutDashboard className="w-5 h-5" /> نظرة عامة
+          </Link>
+          <Link href="/admin/products" className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-neutral-900 transition text-neutral-400 hover:text-white">
+            <Package className="w-5 h-5" /> المنتجات
+          </Link>
+          <Link href="/admin/orders" className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-neutral-900 transition text-neutral-400 hover:text-white">
+            <ShoppingCart className="w-5 h-5" /> الطلبات
+          </Link>
+        </nav>
+        <div className="p-4 border-t border-neutral-800">
+          <button onClick={() => router.push("/")} className="flex items-center gap-3 px-4 py-3 rounded-xl w-full text-left text-red-500 hover:bg-red-500/10 transition">
+            <LogOut className="w-5 h-5" /> تسجيل الخروج
+          </button>
+        </div>
+      </aside>
+      <main className="flex-1 overflow-y-auto p-8">{children}</main>
     </div>
   );
 }
