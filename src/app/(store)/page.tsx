@@ -1,15 +1,12 @@
-import { Hero } from "@/components/store/Hero";
-import { Categories } from "@/components/store/Categories";
-import { FeaturedProducts } from "@/components/store/FeaturedProducts";
-import { WhyMosaad } from "@/components/store/WhyMosaad";
-
 export default function Home() {
   return (
-    <>
-      <Hero />
-      <Categories />
-      <FeaturedProducts />
-      <WhyMosaad />
-    </>
+    <main className="flex min-h-screen flex-col items-center justify-center bg-black text-white p-24">
+      <h1 className="text-5xl font-bold mb-8">
+        MOSAAD <span className="text-red-600">PHOENIX</span>
+      </h1>
+      <p className="text-xl text-gray-400">
+        أكبر مستورد للدراجات في مصر - الوكيل الرسمي
+      </p>
+    </main>
   );
 }
