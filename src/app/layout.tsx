@@ -1,14 +1,13 @@
-import "./globals.css";
+import { Header } from "@/components/store/Header";
+import { Footer } from "@/components/store/Footer";
 
-export const metadata = {
-  title: "MOSAAD | PHOENIX",
-  description: "Largest importer in Egypt",
-};
-
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function StoreLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="ar" dir="rtl">
-      <body className="bg-black text-white">{children}</body>
-    </html>
+    <>
+      <Header />
+      <main>{children}</main>
+      <Footer />
+    </>
   );
 }
+
